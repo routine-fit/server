@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import logger from 'src/config/logger';
-import { CustomError } from 'src/models/custom-error';
+import { CustomError } from 'src/types/custom-error';
 
 type CustomTypeError = TypeError & {
   label?: string;

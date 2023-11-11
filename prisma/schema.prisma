@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum MuscleGroup {
+  ABDOMINAL
+  BICEPS
+  DELTOID
+  ERECTOR_SPINAE
+  LATISSIMUS_DORSI
+  PECTORAL
+  TRAPEZIUS
+  TRICEPS
+}
+
+model Exercise {
+  id           Int            @id @default(autoincrement())
+  name         String
+  muscleGroup  MuscleGroup
+  ExerciseLink ExerciseLink[]
+}
+
+model ExerciseLink {
+  id         Int      @id @default(autoincrement())
+  url        String
+  Exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exerciseId Int
+}

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import fs from 'fs';
 
-import { CustomError } from 'src/models/custom-error';
+import { CustomError } from 'src/types/custom-error';
 
 import users from '../../data/users';
 

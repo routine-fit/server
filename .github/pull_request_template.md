@@ -9,7 +9,7 @@ Before creating the PR, I made sure that:
 5. I assigned the corresponding reviewers
 6. Remove the PR Check section
 
-# [RF-XXX: title-of-ticket](https://project.atlassian.net/browse/RF-XXX)
+# [RF-XXX: title-of-ticket](https://rutinesandfit.atlassian.net/browse/RF-XXX)
 
 > Ticket code, title of the ticket and as a hyperlink, the corresponding JIRA link
 
@@ -21,6 +21,7 @@ Before creating the PR, I made sure that:
 > - Bug Fix (problem solution in development environment)
 > - Hot Fix (problem solution in production environment)
 > - Environment Merge (merge branches to different environments)
+>   - If there is a change on the env variables please update the env.example to have it updated
 
 ## Description
 

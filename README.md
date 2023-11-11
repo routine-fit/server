@@ -21,6 +21,7 @@ Before installing the dependencies and running start the project, follow the nex
 1. Install [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) in case of not have it
 2. Run `nvm install && nvm use && node -v` to use the node version defined on `.nvmrc` file
 3. Run `yarn` to install all the node dependencies
+4. Install docker locally [Docker](https://docs.docker.com/desktop/install/mac-install) in order to run the database locally
 
 ## Available Scripts
 
@@ -31,6 +32,7 @@ In the project directory, you can run:
 - Run `yarn build` to create a production build.
 - Run `yarn lint` to check the lint.
 - Run `yarn lint:fix` to fix all the lint issues and format with prettier.
+- Run `yarn set:local` to run the docker-compose command and sync with the prisma db locally.
 
 ## Basic structure and configurations
 
