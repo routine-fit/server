@@ -22,15 +22,15 @@ enum MuscleGroup {
 }
 
 model Exercise {
-  id           Int            @id @default(autoincrement())
-  name         String
-  muscleGroup  MuscleGroup
-  ExerciseLink ExerciseLink[]
+  id          Int            @id @default(autoincrement())
+  name        String
+  muscleGroup MuscleGroup
+  links       ExerciseLink[]
 }
 
 model ExerciseLink {
   id         Int      @id @default(autoincrement())
   url        String
-  Exercise   Exercise @relation(fields: [exerciseId], references: [id])
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId Int
 }

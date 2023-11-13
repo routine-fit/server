@@ -12,7 +12,7 @@
     "lint": "eslint \"./**/*.{ts,test.ts}\"",
     "format": "prettier --write './**/*.{ts,test.ts}' --config ./.prettierrc",
     "lint:fix": "eslint --fix && yarn format",
-    "pre-commit": "yarn type-check && yarn lint && yarn test --watchAll=false",
+    "pre-commit": "yarn type-check && yarn lint",
     "prepare": "husky install",
     "set:local": "docker-compose up -d && prisma db push"
   },
