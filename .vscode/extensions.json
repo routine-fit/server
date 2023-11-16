@@ -4,6 +4,8 @@
     "eamodio.gitlens",
     "shardulm94.trailing-spaces",
     "streetsidesoftware.code-spell-checker",
-    "esbenp.prettier-vscode"
+    "esbenp.prettier-vscode",
+    "Prisma.prisma",
+    "Prisma.prisma-insider"
   ]
 }
