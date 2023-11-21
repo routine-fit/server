@@ -21,6 +21,11 @@ enum MuscleGroup {
   TRICEPS
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model Exercise {
   id          Int            @id @default(autoincrement())
   name        String
@@ -40,7 +45,7 @@ model UserInfo {
   name             String
   lastName         String
   birthDate        DateTime
-  gender           String
+  gender           Gender
   weight           Float
   height           Float
   phone            String
