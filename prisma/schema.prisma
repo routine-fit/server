@@ -35,7 +35,7 @@ model ExerciseLink {
   exerciseId Int
 }
 
-model UsersInfo {
+model UserInfo {
   id               Int       @id @default(autoincrement())
   name             String
   lastName         String
@@ -45,13 +45,13 @@ model UsersInfo {
   height           Float
   phone            String
   pushNotification Boolean
-  Routine          Routine[]
+  routine          Routine[]
 }
 
 model Routine {
-  id         Int        @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   name       String
   type       String
-  userId     UsersInfo? @relation(fields: [userInfoId], references: [id])
+  userId     UserInfo? @relation(fields: [userInfoId], references: [id])
   userInfoId Int?
 }
