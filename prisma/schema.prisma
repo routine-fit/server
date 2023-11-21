@@ -34,3 +34,24 @@ model ExerciseLink {
   exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId Int
 }
+
+model UserInfo {
+  id               Int       @id @default(autoincrement())
+  name             String
+  lastName         String
+  birthDate        DateTime
+  gender           String
+  weight           Float
+  height           Float
+  phone            String
+  pushNotification Boolean
+  routine          Routine[]
+}
+
+model Routine {
+  id         Int       @id @default(autoincrement())
+  name       String
+  type       String
+  userId     UserInfo? @relation(fields: [userInfoId], references: [id])
+  userInfoId Int?
+}
