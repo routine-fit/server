@@ -21,6 +21,17 @@ enum MuscleGroup {
   TRICEPS
 }
 
+enum TrainingType {
+  STRENGTH
+  CARDIO
+  FUNCTIONAL
+  FLEXIBILITY
+  ENDURANCE
+  SPORTSSPECIFIC
+  AGILITY
+  BODYWEIGHT
+}
+
 model Exercise {
   id          Int            @id @default(autoincrement())
   name        String
@@ -33,4 +44,11 @@ model ExerciseLink {
   url        String
   exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId Int
+}
+
+model TrainingPreference {
+  id        Int          @id @default(autoincrement())
+  type      TrainingType
+  time      Int
+  intensity String
 }
