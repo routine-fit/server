@@ -24,6 +24,8 @@ enum MuscleGroup {
 enum Gender {
   MALE
   FEMALE
+  BINARY
+  PREFER_NOT_SPECIFY
 }
 
 model Exercise {
