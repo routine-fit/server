@@ -28,6 +28,17 @@ enum Gender {
   PREFER_NOT_SPECIFY
 }
 
+enum TrainingType {
+  STRENGTH
+  CARDIO
+  FUNCTIONAL
+  FLEXIBILITY
+  ENDURANCE
+  SPORTSSPECIFIC
+  AGILITY
+  BODYWEIGHT
+}
+
 model Exercise {
   id          Int            @id @default(autoincrement())
   name        String
@@ -43,16 +54,17 @@ model ExerciseLink {
 }
 
 model UserInfo {
-  id               Int            @id @default(autoincrement())
-  firebaseUid      Int            @unique
-  name             String
-  lastName         String
-  birthDate        DateTime
-  gender           Gender
-  phone            String
-  pushNotification Boolean
-  routine          Routine[]
-  GrowthRecord     GrowthRecord[]
+  id                 Int                 @id @default(autoincrement())
+  firebaseUid        Int                 @unique
+  name               String
+  lastName           String
+  birthDate          DateTime
+  gender             Gender
+  phone              String
+  pushNotification   Boolean
+  routine            Routine[]
+  growthRecord       GrowthRecord[]
+  trainingPreference TrainingPreference?
 }
 
 model Routine {
@@ -70,4 +82,13 @@ model GrowthRecord {
   createdAt  DateTime
   user       UserInfo @relation(fields: [userInfoId], references: [firebaseUid])
   userInfoId Int
+}
+
+model TrainingPreference {
+  id         Int          @id @default(autoincrement())
+  type       TrainingType
+  time       Int
+  intensity  String
+  user       UserInfo     @relation(fields: [userInfoId], references: [firebaseUid])
+  userInfoId Int          @unique
 }
