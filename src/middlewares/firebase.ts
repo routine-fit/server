@@ -37,7 +37,7 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
   const { token } = req.headers;
 
   const response = await getTokenDecoded(String(token));
-  if (response.userType !== 'SUPER_ADMIN') {
+  if (response.userType !== 'ADMIN') {
     throw forbiddenError;
   }
 
