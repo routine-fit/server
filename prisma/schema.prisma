@@ -21,6 +21,13 @@ enum MuscleGroup {
   TRICEPS
 }
 
+enum Gender {
+  MALE
+  FEMALE
+  BINARY
+  PREFER_NOT_SPECIFY
+}
+
 model Exercise {
   id          Int            @id @default(autoincrement())
   name        String
@@ -33,4 +40,34 @@ model ExerciseLink {
   url        String
   exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
   exerciseId Int
+}
+
+model UserInfo {
+  id               Int            @id @default(autoincrement())
+  firebaseUid      Int            @unique
+  name             String
+  lastName         String
+  birthDate        DateTime
+  gender           Gender
+  phone            String
+  pushNotification Boolean
+  routine          Routine[]
+  GrowthRecord     GrowthRecord[]
+}
+
+model Routine {
+  id         Int       @id @default(autoincrement())
+  name       String
+  type       String
+  userId     UserInfo? @relation(fields: [userInfoId], references: [firebaseUid])
+  userInfoId Int?
+}
+
+model GrowthRecord {
+  id         Int      @id @default(autoincrement())
+  weight     Float
+  height     Float
+  createdAt  DateTime
+  user       UserInfo @relation(fields: [userInfoId], references: [firebaseUid])
+  userInfoId Int
 }
