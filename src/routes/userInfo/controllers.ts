@@ -25,6 +25,7 @@ const createUserInfo = async (req: Request, res: Response) => {
     data: req.body,
     include: {
       routine: true,
+      GrowthRecord: true,
     },
   });
 
@@ -71,6 +72,7 @@ const deleteUserInfo = async (req: Request, res: Response) => {
     where: { id: Number(id) },
     include: {
       routine: true,
+      GrowthRecord: true,
     },
   });
 
