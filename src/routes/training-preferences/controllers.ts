@@ -5,7 +5,11 @@ import { CustomError } from 'src/types/custom-error';
 import { getActionSuccessMsg, missingId, notFound } from 'src/utils/messages';
 
 const getAllTrainingPreferences = async (req: Request, res: Response) => {
-  const trainingPreferences = await prisma.trainingPreference.findMany({});
+  const trainingPreferences = await prisma.trainingPreference.findMany({
+    include: {
+      user: true,
+    },
+  });
   if (trainingPreferences.length > 0) {
     return res.status(200).json({
       message: getActionSuccessMsg('Training Preference', 'found'),
@@ -19,6 +23,9 @@ const getAllTrainingPreferences = async (req: Request, res: Response) => {
 const createTrainingPreference = async (req: Request, res: Response) => {
   const createdPreferences = await prisma.trainingPreference.create({
     data: req.body,
+    include: {
+      user: true,
+    },
   });
 
   return res.status(201).json({
@@ -62,6 +69,9 @@ const deleteTrainingPreference = async (req: Request, res: Response) => {
 
   const trainingPreference = await prisma.trainingPreference.findUnique({
     where: { id: Number(id) },
+    include: {
+      user: true,
+    },
   });
 
   if (!trainingPreference) {
