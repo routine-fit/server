@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start:build": "node dist/index.js",
     "start": "nodemon",
+    "start:withEmulators": "export FIREBASE_AUTH_EMULATOR_HOST=\"127.0.0.1:9099\" nodemon",
+    "start:build": "node dist/index.js",
+    "set:emulators": "firebase emulators:start",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "lint": "eslint \"./**/*.{ts,test.ts}\"",
@@ -25,6 +27,8 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
+    "firebase-admin": "^11.11.0",
+    "firebase-tools": "^12.9.1",
     "prisma": "^5.5.2",
     "winston": "^3.8.2"
   },

@@ -6,7 +6,7 @@ import logger from './config/logger';
 
 dotenv.config();
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => {
   logger.log({

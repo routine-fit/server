@@ -23,11 +23,18 @@ Before installing the dependencies and running start the project, follow the nex
 3. Run `yarn` to install all the node dependencies
 4. Install docker locally [Docker](https://docs.docker.com/desktop/install/mac-install) in order to run the database locally
 
+### Firebase Emulator
+
+- Login with firebase with the command `firebase login`.
+- Now you can use the emulator with firebase.
+
 ## Available Scripts
 
 In the project directory, you can run:
 
 - Run `yarn start` to run the app in the development mode. Open [http://localhost:4000](http://localhost:4000) to check the server status.
+- Run `yarn start:withEmulators` to runs the project with a env var to allow the connection between the emulators and the app.
+- Run `yarn set:emulators` to runs the firebase emulator to simulate the different features that firebase has.
 - Run `yarn test` to run all tests.
 - Run `yarn build` to create a production build.
 - Run `yarn lint` to check the lint.
