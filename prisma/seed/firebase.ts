@@ -24,7 +24,7 @@ const deleteFirebaseUsers = async (nextPageToken?: string) => {
 export const seedFirebaseDatabase = async () => {
   console.log('\x1b[36m', padMessage('⚡️ Removing data from firebase'));
   await deleteFirebaseUsers();
-  console.log('\x1b[37m', padMessage('🚀 Firebase users removed'));
+  console.log('\x1b[36m', padMessage('🚀 Firebase users removed'));
 
   console.log('\x1b[37m', padMessage('⚡️ Adding firebase users'));
   await Promise.all(data.firebaseUsers.map(async (user) => await createFirebaseUser(user)));
