@@ -19,6 +19,9 @@
     "set:local": "docker-compose up -d && prisma db push",
     "seed": "ts-node --transpile-only prisma/seed/index.ts"
   },
+  "prisma": {
+    "seed": "ts-node --transpile-only prisma/seed/index.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

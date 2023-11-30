@@ -2,6 +2,7 @@ import 'dotenv/config';
 import firebaseAdmin from 'firebase-admin';
 import { PrismaClient } from '@prisma/client';
 
+import data from '../data';
 import { seedFirebaseDatabase } from './firebase';
 import { padMessage } from './utils';
 
@@ -17,7 +18,12 @@ firebaseAdmin.initializeApp({
 
 (async () => {
   try {
+    console.log('\x1b[36m', padMessage('-----------------------', ' '));
+    console.log('\x1b[36m', padMessage('| Board configuration |'));
+    console.log('\x1b[36m', padMessage('-----------------------', ' '));
+
     console.log('\x1b[36m', padMessage('⚡️ Removing data from database'));
+
     await prisma.exerciseLink.deleteMany({});
     console.log('\x1b[36m', padMessage('🚀 Exercise links removed'));
     await prisma.exercise.deleteMany({});
@@ -31,12 +37,27 @@ firebaseAdmin.initializeApp({
     await prisma.routine.deleteMany({});
     console.log('\x1b[36m', padMessage('🚀 Routines removed'));
 
+    console.log();
+
     await seedFirebaseDatabase();
 
-    // Disconnect from prisma
+    console.log();
+
+    console.log('\x1b[36m', padMessage('⚡️ Adding new data to database'));
+
+    await prisma.exercise.createMany({ data: data.exercises });
+    console.log('\x1b[37m', padMessage('🚀 Exercises added'));
+    const exercises = await prisma.exercise.findMany({});
+    await prisma.exerciseLink.createMany({ data: data.generateExerciseLinks(exercises) });
+    console.log('\x1b[37m', padMessage('🚀 Exercise links added'));
+
+    console.log('\x1b[37m', padMessage('🚀 New data added'));
+
+    console.log();
     await prisma.$disconnect();
+    process.exit(0);
   } catch (error) {
-    console.error(error);
+    console.log('\n \x1b[0m 🛑', error);
     await prisma.$disconnect();
     process.exit(1);
   }

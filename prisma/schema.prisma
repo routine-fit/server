@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider      = "prisma-client-js"
   binaryTargets = ["native", "darwin-arm64"]
@@ -9,6 +6,60 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model ExerciseLink {
+  id         Int      @id @default(autoincrement())
+  url        String
+  exerciseId Int
+  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+}
+
+model Exercise {
+  id          Int            @id @default(autoincrement())
+  name        String
+  muscleGroup MuscleGroup
+  links       ExerciseLink[]
+}
+
+model UserInfo {
+  id                 Int                 @id @default(autoincrement())
+  firebaseUid        Int                 @unique
+  name               String
+  lastName           String
+  birthDate          DateTime
+  gender             Gender
+  phone              String
+  pushNotification   Boolean
+  growthRecord       GrowthRecord[]
+  routine            Routine[]
+  trainingPreference TrainingPreference?
+}
+
+model Routine {
+  id         Int       @id @default(autoincrement())
+  name       String
+  type       String
+  userInfoId Int?
+  userId     UserInfo? @relation(fields: [userInfoId], references: [firebaseUid])
+}
+
+model GrowthRecord {
+  id         Int      @id @default(autoincrement())
+  weight     Float
+  height     Float
+  createdAt  DateTime
+  userInfoId Int
+  user       UserInfo @relation(fields: [userInfoId], references: [firebaseUid])
+}
+
+model TrainingPreference {
+  id         Int          @id @default(autoincrement())
+  type       TrainingType
+  time       Int
+  intensity  String
+  userInfoId Int          @unique
+  user       UserInfo     @relation(fields: [userInfoId], references: [firebaseUid])
 }
 
 enum MuscleGroup {
@@ -38,58 +89,4 @@ enum TrainingType {
   SPORTSSPECIFIC
   AGILITY
   BODYWEIGHT
-}
-
-model ExerciseLink {
-  id         Int      @id @default(autoincrement())
-  url        String
-  exercise   Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
-  exerciseId Int
-}
-
-model Exercise {
-  id          Int            @id @default(autoincrement())
-  name        String
-  muscleGroup MuscleGroup
-  links       ExerciseLink[]
-}
-
-model UserInfo {
-  id                 Int                 @id @default(autoincrement())
-  firebaseUid        Int                 @unique
-  name               String
-  lastName           String
-  birthDate          DateTime
-  gender             Gender
-  phone              String
-  pushNotification   Boolean
-  routine            Routine[]
-  growthRecord       GrowthRecord[]
-  trainingPreference TrainingPreference?
-}
-
-model Routine {
-  id         Int       @id @default(autoincrement())
-  name       String
-  type       String
-  userId     UserInfo? @relation(fields: [userInfoId], references: [firebaseUid])
-  userInfoId Int?
-}
-
-model GrowthRecord {
-  id         Int      @id @default(autoincrement())
-  weight     Float
-  height     Float
-  createdAt  DateTime
-  user       UserInfo @relation(fields: [userInfoId], references: [firebaseUid])
-  userInfoId Int
-}
-
-model TrainingPreference {
-  id         Int          @id @default(autoincrement())
-  type       TrainingType
-  time       Int
-  intensity  String
-  user       UserInfo     @relation(fields: [userInfoId], references: [firebaseUid])
-  userInfoId Int          @unique
 }
