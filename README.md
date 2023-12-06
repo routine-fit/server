@@ -33,13 +33,14 @@ Before installing the dependencies and running start the project, follow the nex
 In the project directory, you can run:
 
 - Run `yarn start` to run the app in the development mode. Open [http://localhost:4000](http://localhost:4000) to check the server status.
-- Run `yarn start:withEmulators` to runs the project with a env var to allow the connection between the emulators and the app.
-- Run `yarn set:emulators` to runs the firebase emulator to simulate the different features that firebase has.
+- Run `yarn start:local` to run set the environment locally and start the server with the emulators.
 - Run `yarn test` to run all tests.
 - Run `yarn build` to create a production build.
 - Run `yarn lint` to check the lint.
 - Run `yarn lint:fix` to fix all the lint issues and format with prettier.
-- Run `yarn set:local` to run the docker-compose command and sync with the prisma db locally.
+- Run `yarn set:emulators` to runs the firebase emulator to simulate the different features that firebase has.
+- Run `yarn set:docker` to run the docker-compose command and sync with the prisma db locally.
+- Run `yarn seed` to run seed the database and firebase. 🚨 PLEASE REVIEW THE ENVS BEFORE SEEDING.
 
 ## Basic structure and configurations
 

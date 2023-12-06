@@ -1,14 +1,13 @@
 {
-  "name": "typescript-server-template",
+  "name": "routine-fit-server",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "start": "nodemon",
-    "start:withEmulators": "export FIREBASE_AUTH_EMULATOR_HOST=\"127.0.0.1:9099\" nodemon",
+    "start:local": " yarn set:docker && ttab -t 'Firebase Emulators' yarn set:emulators && ttab -t 'Server' yarn nodemon",
     "start:build": "node dist/index.js",
-    "set:emulators": "firebase emulators:start",
     "test": "jest",
     "type-check": "tsc --noEmit",
     "lint": "eslint \"./**/*.{ts,test.ts}\"",
@@ -16,8 +15,9 @@
     "lint:fix": "eslint --fix && yarn format",
     "pre-commit": "yarn type-check && yarn lint",
     "prepare": "husky install",
-    "set:local": "docker-compose up -d && prisma db push",
-    "seed": "ts-node --transpile-only prisma/seed/index.ts"
+    "set:emulators": "firebase emulators:start",
+    "set:docker": "docker-compose up -d && prisma db push",
+    "seed": "prisma db seed"
   },
   "prisma": {
     "seed": "ts-node --transpile-only prisma/seed/index.ts"
@@ -61,6 +61,7 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.0",
+    "ttab": "^0.8.0",
     "typescript": "^5.2.2"
   }
 }
