@@ -8,6 +8,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model UserInfo {
+  firebaseUid        String              @unique
+  name               String
+  lastName           String
+  birthDate          DateTime
+  gender             Gender
+  phone              String
+  pushNotification   Boolean
+  growthRecords      GrowthRecord[]
+  routines           Routine[]
+  exercises          Exercise[]
+  trainingPreference TrainingPreference?
+}
+
+model GrowthRecord {
+  id         Int      @id @default(autoincrement())
+  weight     Float
+  height     Float
+  createdAt  DateTime
+  userInfoId String
+  user       UserInfo @relation(fields: [userInfoId], references: [firebaseUid])
+}
+
+model TrainingPreference {
+  id         Int          @id @default(autoincrement())
+  type       TrainingType
+  time       Int
+  intensity  String
+  userInfoId String       @unique
+  user       UserInfo     @relation(fields: [userInfoId], references: [firebaseUid])
+}
+
 model ExerciseLink {
   id         Int      @id @default(autoincrement())
   url        String
@@ -20,46 +52,16 @@ model Exercise {
   name        String
   muscleGroup MuscleGroup
   links       ExerciseLink[]
-}
-
-model UserInfo {
-  id                 Int                 @id @default(autoincrement())
-  firebaseUid        Int                 @unique
-  name               String
-  lastName           String
-  birthDate          DateTime
-  gender             Gender
-  phone              String
-  pushNotification   Boolean
-  growthRecord       GrowthRecord[]
-  routine            Routine[]
-  trainingPreference TrainingPreference?
+  userInfoId  String
+  userId      UserInfo       @relation(fields: [userInfoId], references: [firebaseUid])
 }
 
 model Routine {
-  id         Int       @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   name       String
   type       String
-  userInfoId Int?
-  userId     UserInfo? @relation(fields: [userInfoId], references: [firebaseUid])
-}
-
-model GrowthRecord {
-  id         Int      @id @default(autoincrement())
-  weight     Float
-  height     Float
-  createdAt  DateTime
-  userInfoId Int
-  user       UserInfo @relation(fields: [userInfoId], references: [firebaseUid])
-}
-
-model TrainingPreference {
-  id         Int          @id @default(autoincrement())
-  type       TrainingType
-  time       Int
-  intensity  String
-  userInfoId Int          @unique
-  user       UserInfo     @relation(fields: [userInfoId], references: [firebaseUid])
+  userInfoId String
+  userId     UserInfo @relation(fields: [userInfoId], references: [firebaseUid])
 }
 
 enum MuscleGroup {

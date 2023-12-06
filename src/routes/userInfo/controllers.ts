@@ -4,10 +4,11 @@ import { prisma } from 'src/config/prisma';
 import { CustomError } from 'src/types/custom-error';
 import { getActionSuccessMsg, missingId, notFound } from 'src/utils/messages';
 
+// TO-DO: Update the query params id with firebaseUid or uid
 const getAllUserInfo = async (req: Request, res: Response) => {
   const userInfo = await prisma.userInfo.findMany({
     include: {
-      routine: true,
+      routines: true,
     },
   });
   if (userInfo.length > 0) {
@@ -24,8 +25,8 @@ const createUserInfo = async (req: Request, res: Response) => {
   const createdUserInfo = await prisma.userInfo.create({
     data: req.body,
     include: {
-      routine: true,
-      growthRecord: true,
+      routines: true,
+      growthRecords: true,
     },
   });
 
@@ -43,7 +44,7 @@ const editUserInfo = async (req: Request, res: Response) => {
   }
 
   const userInfo = await prisma.userInfo.findUnique({
-    where: { id: Number(id) },
+    where: { firebaseUid: id },
   });
 
   if (!userInfo) {
@@ -51,7 +52,7 @@ const editUserInfo = async (req: Request, res: Response) => {
   }
 
   const editedUserInfo = await prisma.userInfo.update({
-    where: { id: Number(id) },
+    where: { firebaseUid: id },
     data: { ...req.body },
   });
 
@@ -69,10 +70,10 @@ const deleteUserInfo = async (req: Request, res: Response) => {
   }
 
   const userInfo = await prisma.userInfo.findUnique({
-    where: { id: Number(id) },
+    where: { firebaseUid: id },
     include: {
-      routine: true,
-      growthRecord: true,
+      routines: true,
+      growthRecords: true,
     },
   });
 
@@ -81,7 +82,7 @@ const deleteUserInfo = async (req: Request, res: Response) => {
   }
 
   const deletedUserInfo = await prisma.userInfo.delete({
-    where: { id: Number(id) },
+    where: { firebaseUid: id },
   });
 
   return res.status(200).json({
