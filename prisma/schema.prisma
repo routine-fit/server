@@ -35,7 +35,7 @@ model TrainingPreference {
   id         Int          @id @default(autoincrement())
   type       TrainingType
   time       Int
-  intensity  String
+  intensity  Intensity
   userInfoId String       @unique
   user       UserInfo     @relation(fields: [userInfoId], references: [firebaseUid])
 }
@@ -88,7 +88,14 @@ enum TrainingType {
   FUNCTIONAL
   FLEXIBILITY
   ENDURANCE
-  SPORTSSPECIFIC
+  SPORTS_SPECIFIC
   AGILITY
   BODYWEIGHT
+}
+
+// TO-DO: Review for future
+enum Intensity {
+  HIGH
+  MEDIUM
+  LOW
 }

@@ -60,6 +60,8 @@ const FIREBASE_AUTH_EMULATOR_HOST = process.env['FIREBASE_AUTH_EMULATOR_HOST'];
     console.log('\x1b[37m', padMessage('🚀 Users info added'));
     await prisma.growthRecord.createMany({ data: data.growthRecords });
     console.log('\x1b[37m', padMessage('🚀 Growth records added'));
+    await prisma.trainingPreference.createMany({ data: data.trainingPreferences });
+    console.log('\x1b[37m', padMessage('🚀 Training preferences added'));
     await prisma.exercise.createMany({ data: data.exercises });
     console.log('\x1b[37m', padMessage('🚀 Exercises added'));
     const exercises = await prisma.exercise.findMany({});

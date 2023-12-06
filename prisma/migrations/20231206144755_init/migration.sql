@@ -5,7 +5,10 @@ CREATE TYPE "MuscleGroup" AS ENUM ('ABDOMINAL', 'BICEPS', 'DELTOID', 'ERECTOR_SP
 CREATE TYPE "Gender" AS ENUM ('MALE', 'FEMALE', 'BINARY', 'PREFER_NOT_SPECIFY');
 
 -- CreateEnum
-CREATE TYPE "TrainingType" AS ENUM ('STRENGTH', 'CARDIO', 'FUNCTIONAL', 'FLEXIBILITY', 'ENDURANCE', 'SPORTSSPECIFIC', 'AGILITY', 'BODYWEIGHT');
+CREATE TYPE "TrainingType" AS ENUM ('STRENGTH', 'CARDIO', 'FUNCTIONAL', 'FLEXIBILITY', 'ENDURANCE', 'SPORTS_SPECIFIC', 'AGILITY', 'BODYWEIGHT');
+
+-- CreateEnum
+CREATE TYPE "Intensity" AS ENUM ('HIGH', 'MEDIUM', 'LOW');
 
 -- CreateTable
 CREATE TABLE "UserInfo" (
@@ -34,7 +37,7 @@ CREATE TABLE "TrainingPreference" (
     "id" SERIAL NOT NULL,
     "type" "TrainingType" NOT NULL,
     "time" INTEGER NOT NULL,
-    "intensity" TEXT NOT NULL,
+    "intensity" "Intensity" NOT NULL,
     "userInfoId" TEXT NOT NULL,
 
     CONSTRAINT "TrainingPreference_pkey" PRIMARY KEY ("id")
