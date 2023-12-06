@@ -39,12 +39,12 @@ const FIREBASE_AUTH_EMULATOR_HOST = process.env['FIREBASE_AUTH_EMULATOR_HOST'];
     console.log('\x1b[37m', padMessage('🚀 Exercise links removed'));
     await prisma.exercise.deleteMany({});
     console.log('\x1b[37m', padMessage('🚀 Exercises removed'));
-    await prisma.userInfo.deleteMany({});
-    console.log('\x1b[37m', padMessage('🚀 Users info removed'));
     await prisma.growthRecord.deleteMany({});
     console.log('\x1b[37m', padMessage('🚀 Growth records removed'));
     await prisma.trainingPreference.deleteMany({});
     console.log('\x1b[37m', padMessage('🚀 Training preferences removed'));
+    await prisma.userInfo.deleteMany({});
+    console.log('\x1b[37m', padMessage('🚀 Users info removed'));
     await prisma.routine.deleteMany({});
     console.log('\x1b[37m', padMessage('🚀 Routines removed'));
 
