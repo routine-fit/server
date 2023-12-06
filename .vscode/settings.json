@@ -19,5 +19,5 @@
   },
   "editor.formatOnSave": true,
   "typescript.preferences.importModuleSpecifier": "shortest",
-  "cSpell.words": ["codepaths", "postgresql", "tsbuildinfo"]
+  "cSpell.words": ["codepaths", "Kettlebell", "postgresql", "SPINAE", "tsbuildinfo", "ttab"]
 }

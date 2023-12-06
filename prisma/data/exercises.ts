@@ -28,7 +28,7 @@ export const exercises: Prisma.ExerciseCreateManyInput[] = [
     userInfoId: 'M5MCzG5aCKpf0B7qpNNsi8RyjN11',
   },
   {
-    name: 'Puente de gluteo',
+    name: 'Puente de glúteo',
     muscleGroup: MuscleGroup.ABDOMINAL,
     userInfoId: 'M5MCzG5aCKpf0B7qpNNsi8RyjN11',
   },
@@ -43,7 +43,7 @@ export const exercises: Prisma.ExerciseCreateManyInput[] = [
     userInfoId: 'M5MCzG5aCKpf0B7qpNNsi8RyjN12',
   },
   {
-    name: 'Sentadillas atras',
+    name: 'Sentadillas atrás',
     muscleGroup: MuscleGroup.ERECTOR_SPINAE,
     userInfoId: 'M5MCzG5aCKpf0B7qpNNsi8RyjN12',
   },
@@ -68,7 +68,7 @@ export const exercises: Prisma.ExerciseCreateManyInput[] = [
     userInfoId: 'M5MCzG5aCKpf0B7qpNNsi8RyjN14',
   },
   {
-    name: 'Bulgara c/press',
+    name: 'Búlgara c/press',
     muscleGroup: MuscleGroup.LATISSIMUS_DORSI,
     userInfoId: 'M5MCzG5aCKpf0B7qpNNsi8RyjN14',
   },
