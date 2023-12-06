@@ -16,26 +16,37 @@ firebaseAdmin.initializeApp({
   }),
 });
 
+const ENV = process.env['ENV'];
+const FIREBASE_AUTH_EMULATOR_HOST = process.env['FIREBASE_AUTH_EMULATOR_HOST'];
+
 (async () => {
   try {
+    console.log();
     console.log('\x1b[36m', padMessage('-----------------------', ' '));
     console.log('\x1b[36m', padMessage('| Board configuration |'));
     console.log('\x1b[36m', padMessage('-----------------------', ' '));
+    console.log('\x1b[36m'.padStart(10), 'Seeding env:', `\x1b[37m${ENV}\n`);
+    console.log(
+      '\x1b[36m'.padStart(10),
+      'Connected to emulators:',
+      `\x1b[36m${FIREBASE_AUTH_EMULATOR_HOST ? '✅' : '🛑'}\n`,
+    );
+    console.log('\x1b[36m', padMessage('-----------------------', '-').replace(/\s/gi, '-'), '\n');
 
     console.log('\x1b[36m', padMessage('⚡️ Removing data from database'));
 
     await prisma.exerciseLink.deleteMany({});
-    console.log('\x1b[36m', padMessage('🚀 Exercise links removed'));
+    console.log('\x1b[37m', padMessage('🚀 Exercise links removed'));
     await prisma.exercise.deleteMany({});
-    console.log('\x1b[36m', padMessage('🚀 Exercises removed'));
+    console.log('\x1b[37m', padMessage('🚀 Exercises removed'));
     await prisma.userInfo.deleteMany({});
-    console.log('\x1b[36m', padMessage('🚀 Users info removed'));
+    console.log('\x1b[37m', padMessage('🚀 Users info removed'));
     await prisma.growthRecord.deleteMany({});
-    console.log('\x1b[36m', padMessage('🚀 Growth records removed'));
+    console.log('\x1b[37m', padMessage('🚀 Growth records removed'));
     await prisma.trainingPreference.deleteMany({});
-    console.log('\x1b[36m', padMessage('🚀 Training preferences removed'));
+    console.log('\x1b[37m', padMessage('🚀 Training preferences removed'));
     await prisma.routine.deleteMany({});
-    console.log('\x1b[36m', padMessage('🚀 Routines removed'));
+    console.log('\x1b[37m', padMessage('🚀 Routines removed'));
 
     console.log();
 
@@ -45,15 +56,14 @@ firebaseAdmin.initializeApp({
 
     console.log('\x1b[36m', padMessage('⚡️ Adding new data to database'));
 
+    await prisma.userInfo.createMany({ data: data.usersInfo });
+    console.log('\x1b[37m', padMessage('🚀 Users info added'));
     await prisma.exercise.createMany({ data: data.exercises });
     console.log('\x1b[37m', padMessage('🚀 Exercises added'));
     const exercises = await prisma.exercise.findMany({});
     await prisma.exerciseLink.createMany({ data: data.generateExerciseLinks(exercises) });
     console.log('\x1b[37m', padMessage('🚀 Exercise links added'));
 
-    console.log('\x1b[37m', padMessage('🚀 New data added'));
-
-    console.log();
     await prisma.$disconnect();
     process.exit(0);
   } catch (error) {
