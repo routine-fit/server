@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { prisma } from 'src/config/prisma';
 import { CustomError } from 'src/types/custom-error';
 import { getActionSuccessMsg, missingId, notFound } from 'src/utils/messages';
+import { userInfoSchema } from 'src/validations/userInfoValidations';
 
 // TO-DO: Update the query params id with firebaseUid or uid
 const getAllUserInfo = async (req: Request, res: Response) => {
@@ -22,19 +23,32 @@ const getAllUserInfo = async (req: Request, res: Response) => {
 };
 
 const createUserInfo = async (req: Request, res: Response) => {
-  const createdUserInfo = await prisma.userInfo.create({
-    data: req.body,
-    include: {
-      routines: true,
-      growthRecords: true,
-    },
-  });
+  try {
+    const { error, value } = userInfoSchema.validate(req.body);
 
-  return res.status(201).json({
-    message: getActionSuccessMsg('User Info', 'created'),
-    data: createdUserInfo,
-    error: false,
-  });
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
+
+    const createdUserInfo = await prisma.userInfo.create({
+      data: value,
+      include: {
+        routines: true,
+        growthRecords: true,
+      },
+    });
+
+    return res.status(201).json({
+      message: getActionSuccessMsg('User Info', 'created'),
+      data: createdUserInfo,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: 'Internal Server Error',
+    });
+  }
 };
 
 const editUserInfo = async (req: Request, res: Response) => {
