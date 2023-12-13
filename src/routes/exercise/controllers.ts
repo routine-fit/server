@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { prisma } from 'src/config/prisma';
 import { CustomError } from 'src/types/custom-error';
 import { getActionSuccessMsg, missingId, notFound } from 'src/utils/messages';
-import { exerciseSchema } from 'src/validations/exerciseValidations';
 
 const getAllExercises = async (req: Request, res: Response) => {
   const exercises = await prisma.exercise.findMany({
@@ -22,31 +21,18 @@ const getAllExercises = async (req: Request, res: Response) => {
 };
 
 const createExercise = async (req: Request, res: Response) => {
-  try {
-    const { error, value } = exerciseSchema.validate(req.body);
+  const createdExercise = await prisma.exercise.create({
+    data: req.body,
+    include: {
+      links: true,
+    },
+  });
 
-    if (error) {
-      return res.status(500).json({ error: error.details[0].message });
-    }
-
-    const createdExercise = await prisma.exercise.create({
-      data: value,
-      include: {
-        links: true,
-      },
-    });
-
-    return res.status(201).json({
-      message: getActionSuccessMsg('Exercise', 'created'),
-      data: createdExercise,
-      error: false,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      error: true,
-      message: 'Error on validating schema',
-    });
-  }
+  return res.status(201).json({
+    message: getActionSuccessMsg('Exercise', 'created'),
+    data: createdExercise,
+    error: false,
+  });
 };
 
 const editExercise = async (req: Request, res: Response) => {

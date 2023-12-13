@@ -1,4 +1,7 @@
+import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
+
+import { CustomError } from 'src/types/custom-error';
 
 const muscleGroupValues = [
   'ABDOMINAL',
@@ -10,12 +13,6 @@ const muscleGroupValues = [
   'TRAPEZIUS',
   'TRICEPS',
 ];
-
-export const exerciseLinkSchema = Joi.object({
-  id: Joi.number().integer(),
-  url: Joi.string().required(),
-  exerciseId: Joi.number().integer().required(),
-});
 
 export const exerciseSchema = Joi.object({
   id: Joi.number().integer(),
@@ -36,3 +33,11 @@ export const exerciseSchema = Joi.object({
     }).required(),
   }).required(),
 });
+
+export const validateExerciseCreation = (req: Request, res: Response, next: NextFunction) => {
+  const validation = exerciseSchema.validate(req.body);
+  if (validation.error) {
+    throw new CustomError(400, validation.error.details[0].message);
+  }
+  return next();
+};
