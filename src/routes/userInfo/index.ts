@@ -1,11 +1,13 @@
 import express from 'express';
 
+import { validateUserInfoCreation } from 'src/validations/userInfo';
+
 import controllers from './controllers';
 
 const router = express.Router();
 
 router.get('/', controllers.getAllUserInfo);
-router.post('/', controllers.createUserInfo);
+router.post('/', validateUserInfoCreation, controllers.createUserInfo);
 router.put('/:id', controllers.editUserInfo);
 router.delete('/:id', controllers.deleteUserInfo);
 
