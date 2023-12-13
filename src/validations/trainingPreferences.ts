@@ -1,4 +1,7 @@
+import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
+
+import { CustomError } from 'src/types/custom-error';
 
 export const allowedTrainingTypes = [
   'STRENGTH',
@@ -24,3 +27,15 @@ export const trainingPreferenceSchema = Joi.object({
     }).required(),
   }).required(),
 });
+
+export const validatetrainingPreferenceCreation = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const validation = trainingPreferenceSchema.validate(req.body);
+  if (validation.error) {
+    throw new CustomError(400, validation.error.details[0].message);
+  }
+  return next();
+};
