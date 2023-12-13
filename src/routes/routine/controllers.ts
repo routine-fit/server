@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { prisma } from 'src/config/prisma';
 import { CustomError } from 'src/types/custom-error';
 import { getActionSuccessMsg, missingId, notFound } from 'src/utils/messages';
-import { routineSchema } from 'src/validations/routineValidations';
+import { routineSchema } from 'src/validations/routine';
 
 const getAllRoutines = async (req: Request, res: Response) => {
   const routines = await prisma.routine.findMany({
@@ -22,31 +22,18 @@ const getAllRoutines = async (req: Request, res: Response) => {
 };
 
 const createRoutine = async (req: Request, res: Response) => {
-  try {
-    const { error, value } = routineSchema.validate(req.body);
+  const createdRoutine = await prisma.routine.create({
+    data: req.body,
+    include: {
+      userId: true,
+    },
+  });
 
-    if (error) {
-      return res.status(400).json({ error: error.details[0].message });
-    }
-
-    const createdRoutine = await prisma.routine.create({
-      data: value,
-      include: {
-        userId: true,
-      },
-    });
-
-    return res.status(201).json({
-      message: getActionSuccessMsg('Exercise', 'created'),
-      data: createdRoutine,
-      error: false,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      error: true,
-      message: 'Internal Server Error',
-    });
-  }
+  return res.status(201).json({
+    message: getActionSuccessMsg('Exercise', 'created'),
+    data: createdRoutine,
+    error: false,
+  });
 };
 
 const editRoutine = async (req: Request, res: Response) => {
