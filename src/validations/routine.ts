@@ -4,7 +4,6 @@ import Joi from 'joi';
 import { CustomError } from 'src/types/custom-error';
 
 export const routineSchema = Joi.object({
-  id: Joi.number().integer(),
   name: Joi.string().required(),
   type: Joi.string().required(),
   userId: Joi.object({
