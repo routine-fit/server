@@ -15,7 +15,6 @@ export const allowedTrainingTypes = [
 ];
 
 export const trainingPreferenceSchema = Joi.object({
-  id: Joi.number().integer(),
   type: Joi.string()
     .valid(...allowedTrainingTypes)
     .required(),
