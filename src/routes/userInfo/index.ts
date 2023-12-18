@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { validateUserInfoCreation } from 'src/validations/userInfo';
+import { validateUserInfoCreation } from 'src/validations/user-info';
 
 import controllers from './controllers';
 
