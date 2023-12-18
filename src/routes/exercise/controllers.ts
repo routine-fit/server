@@ -21,7 +21,6 @@ const getAllExercises = async (req: Request, res: Response) => {
 };
 
 const createExercise = async (req: Request, res: Response) => {
-  // TO-DO: Middleware to validate the data and structure the info.
   const createdExercise = await prisma.exercise.create({
     data: req.body,
     include: {
