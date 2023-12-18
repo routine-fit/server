@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { validatetrainingPreferenceCreation } from 'src/validations/trainingPreferences';
+import { validatetrainingPreferenceCreation } from 'src/validations/training-preferences';
 
 import controllers from './controllers';
 
