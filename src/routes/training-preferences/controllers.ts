@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { prisma } from 'src/config/prisma';
-import { CustomError } from 'src/types/custom-error';
+import { CustomError } from 'src/interfaces/custom-error';
 import { getActionSuccessMsg, missingId, notFound } from 'src/utils/messages';
 
 const getAllTrainingPreferences = async (req: Request, res: Response) => {

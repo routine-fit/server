@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 
-import { CustomError } from 'src/types/custom-error';
+import { CustomError } from 'src/interfaces/custom-error';
 
 const muscleGroupValues = [
   'ABDOMINAL',
