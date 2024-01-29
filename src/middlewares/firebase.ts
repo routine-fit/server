@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 
 import firebase from 'src/config/firebase';
-import { CustomError } from 'src/types/custom-error';
+import { CustomError } from 'src/interfaces/custom-error';
 
 const forbiddenError = new CustomError(403, 'Forbidden. You must have permission to access.', {
   type: 'TOKEN_FORBIDDEN',
@@ -27,7 +27,7 @@ const getTokenDecoded = async (token: string) => {
         label: 'firebase',
       });
     }
-    throw new Error(error);
+    throw error;
   }
 
   return response;
@@ -40,6 +40,19 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
   if (response.userType !== 'ADMIN') {
     throw forbiddenError;
   }
+
+  return next();
+};
+
+export const isUser = async (req: Request, res: Response, next: NextFunction) => {
+  const { token } = req.headers;
+
+  const response = await getTokenDecoded(String(token));
+  if (!response.uid) {
+    throw forbiddenError;
+  }
+
+  req.firebaseUid = response.uid;
 
   return next();
 };
