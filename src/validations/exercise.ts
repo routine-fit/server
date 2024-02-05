@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import Joi from 'joi';
+import * as yup from 'yup';
 
 import { CustomError } from 'src/interfaces/custom-error';
 
@@ -14,30 +14,38 @@ const muscleGroupValues = [
   'TRICEPS',
 ];
 
-export const exerciseSchema = Joi.object({
-  id: Joi.number().integer(),
-  name: Joi.string().required(),
-  muscleGroup: Joi.string()
-    .valid(...muscleGroupValues)
-    .required(),
-  links: Joi.object().keys({
-    create: Joi.object()
-      .keys({
-        url: Joi.string().required(),
+export const exerciseSchema = yup.object({
+  id: yup.number().integer(),
+  name: yup.string().required(),
+  muscleGroup: yup.string().oneOf(muscleGroupValues).required(),
+  links: yup.object().shape({
+    create: yup
+      .object()
+      .shape({
+        url: yup.string().required(),
       })
       .required(),
   }),
-  userId: Joi.object({
-    connect: Joi.object({
-      firebaseUid: Joi.string().required(),
-    }).required(),
-  }).required(),
+  userId: yup
+    .object({
+      connect: yup
+        .object({
+          firebaseUid: yup.string().required(),
+        })
+        .required(),
+    })
+    .required(),
 });
 
-export const validateExerciseCreation = (req: Request, res: Response, next: NextFunction) => {
-  const validation = exerciseSchema.validate(req.body);
-  if (validation.error) {
-    throw new CustomError(400, validation.error.details[0].message);
+export const validateExerciseCreation = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await exerciseSchema.validate(req.body, { abortEarly: false });
+    return next();
+  } catch (error) {
+    if (yup.ValidationError.isError(error)) {
+      throw new CustomError(400, error.errors[0]);
+    } else {
+      throw new CustomError(500, 'Internal Server Error');
+    }
   }
-  return next();
 };
