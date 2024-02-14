@@ -9,7 +9,6 @@ export const userInfoSchema = yup.object({
   lastName: yup.string().required(),
   birthDate: yup.date().required(),
   gender: yup.string().oneOf(['MALE', 'FEMALE', 'BINARY', 'PREFER_NOT_SPECIFY']).required(),
-  phone: yup.string().required(),
   pushNotification: yup.boolean().required(),
 });
 
