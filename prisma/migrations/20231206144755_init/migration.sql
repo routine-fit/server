@@ -17,7 +17,6 @@ CREATE TABLE "UserInfo" (
     "lastName" TEXT NOT NULL,
     "birthDate" TIMESTAMP(3) NOT NULL,
     "gender" "Gender" NOT NULL,
-    "phone" TEXT NOT NULL,
     "pushNotification" BOOLEAN NOT NULL
 );
 

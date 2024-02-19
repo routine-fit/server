@@ -7,7 +7,6 @@ export const usersInfo: Prisma.UserInfoCreateManyInput[] = [
     lastName: 'Marini',
     birthDate: '1998-01-05T00:00:00.000Z',
     gender: 'MALE',
-    phone: '+5491111111111',
     pushNotification: false,
   },
   {
@@ -16,7 +15,6 @@ export const usersInfo: Prisma.UserInfoCreateManyInput[] = [
     lastName: 'Carthery',
     birthDate: '1990-05-01T00:00:00.000Z',
     gender: 'MALE',
-    phone: '+5491111111111',
     pushNotification: false,
   },
   {
@@ -25,7 +23,6 @@ export const usersInfo: Prisma.UserInfoCreateManyInput[] = [
     lastName: 'Doe',
     birthDate: '1980-12-23T00:00:00.000Z',
     gender: 'MALE',
-    phone: '+5491111111111',
     pushNotification: false,
   },
   {
@@ -34,7 +31,6 @@ export const usersInfo: Prisma.UserInfoCreateManyInput[] = [
     lastName: 'Mandalor',
     birthDate: '1992-04-28T00:00:00.000Z',
     gender: 'FEMALE',
-    phone: '+5491111111111',
     pushNotification: false,
   },
   {
@@ -43,7 +39,6 @@ export const usersInfo: Prisma.UserInfoCreateManyInput[] = [
     lastName: 'Rogerta',
     birthDate: '2002-06-13T00:00:00.000Z',
     gender: 'PREFER_NOT_SPECIFY',
-    phone: '+5491111111111',
     pushNotification: false,
   },
   {
@@ -52,7 +47,6 @@ export const usersInfo: Prisma.UserInfoCreateManyInput[] = [
     lastName: 'Majin',
     birthDate: '2000-07-15T00:00:00.000Z',
     gender: 'BINARY',
-    phone: '+5491111111111',
     pushNotification: false,
   },
 ];

@@ -1,22 +1,31 @@
 import { NextFunction, Request, Response } from 'express';
-import Joi from 'joi';
+import * as yup from 'yup';
 
 import { CustomError } from 'src/interfaces/custom-error';
 
-export const routineSchema = Joi.object({
-  name: Joi.string().required(),
-  type: Joi.string().required(),
-  userId: Joi.object({
-    connect: Joi.object({
-      firebaseUid: Joi.string().required(),
-    }).required(),
-  }).required(),
+export const routineSchema = yup.object({
+  name: yup.string().required(),
+  type: yup.string().required(),
+  userId: yup
+    .object({
+      connect: yup
+        .object({
+          firebaseUid: yup.string().required(),
+        })
+        .required(),
+    })
+    .required(),
 });
 
-export const validateRoutineCreation = (req: Request, res: Response, next: NextFunction) => {
-  const validation = routineSchema.validate(req.body);
-  if (validation.error) {
-    throw new CustomError(400, validation.error.details[0].message);
+export const validateRoutineCreation = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await routineSchema.validate(req.body, { abortEarly: false });
+    return next();
+  } catch (error) {
+    if (yup.ValidationError.isError(error)) {
+      throw new CustomError(400, error.errors[0]);
+    } else {
+      throw new CustomError(500, 'Internal Server Error');
+    }
   }
-  return next();
 };

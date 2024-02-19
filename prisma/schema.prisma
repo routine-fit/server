@@ -14,7 +14,6 @@ model UserInfo {
   lastName           String
   birthDate          DateTime
   gender             Gender
-  phone              String
   pushNotification   Boolean
   growthRecords      GrowthRecord[]
   routines           Routine[]
