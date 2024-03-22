@@ -3,12 +3,16 @@ import { Request, Response } from 'express';
 import { prisma } from 'src/config/prisma';
 import { CustomError } from 'src/interfaces/custom-error';
 import { getActionSuccessMsg, missingId, notFound } from 'src/utils/messages';
+import { getFormattedQueryParams } from 'src/utils/query';
 
 const getAllExercises = async (req: Request, res: Response) => {
+  const { query, orderBy } = getFormattedQueryParams(req.query);
   const exercises = await prisma.exercise.findMany({
     include: {
       links: true,
     },
+    where: query,
+    orderBy,
   });
   if (exercises.length > 0) {
     return res.status(200).json({
